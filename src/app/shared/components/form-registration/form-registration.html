@@ -1,0 +1,101 @@
+<div class="w-full rounded-3xl border border-orange-400/70 bg-[#050a11]/90 p-6 shadow-2xl shadow-orange-500/20 sm:p-8">
+  <div class="mb-5 text-center">
+    <h2 class="text-xl font-black uppercase tracking-wide text-white">
+      <span class="text-orange-400">[</span>
+      Recibe acceso anticipado
+      <span class="text-orange-400">]</span>
+    </h2>
+
+    <p class="mt-2 text-sm text-gray-300">
+      Únete a la red ciudadana de prevención.
+    </p>
+  </div>
+
+  <form class="space-y-4" [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label class="mb-1 block text-sm font-semibold text-gray-200">
+        Nombre completo
+      </label>
+
+      <input type="text" formControlName="fullName" placeholder="Escribe tu nombre..." (input)="onlyLetters($event)"
+        class="w-full rounded-lg border border-gray-500 bg-[#11181d] px-4 py-3 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/30" />
+
+      @if (fullName.invalid && fullName.touched) {
+      <p class="mt-1 text-xs text-red-400">
+        @if (fullName.hasError('required')) {
+        El nombre es obligatorio.
+        } @else if (fullName.hasError('incompleteName')) {
+        Ingresa nombre y apellido.
+        } @else if (fullName.hasError('invalidName')) {
+        El nombre solo puede contener letras.
+        } @else {
+        Ingresa un nombre válido.
+        }
+      </p>
+      }
+    </div>
+
+    <div>
+      <label class="mb-1 block text-sm font-semibold text-gray-200">
+        WhatsApp
+      </label>
+
+      <div class="flex gap-2">
+        <div
+          class="flex items-center rounded-lg border border-gray-500 bg-[#11181d] px-3 text-sm font-semibold text-white">
+          +52
+        </div>
+
+        <input type="tel" formControlName="phone" placeholder="33 1234 5678" maxlength="10" inputmode="numeric"
+          pattern="[0-9]*" (input)="onlyNumbers($event)"
+          class="w-full rounded-xl border border-gray-500 bg-[#11181d] px-5 py-4 text-base text-white outline-none transition placeholder:text-gray-500 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/30" />
+      </div>
+
+      @if (phone.invalid && phone.touched) {
+      <p class="mt-1 text-xs text-red-400">
+        Ingresa un número válido de WhatsApp.
+      </p>
+      }
+    </div>
+
+    <div>
+      <label class="mb-1 block text-sm font-semibold text-gray-200">
+        ¿En qué colonia estacionas más tu auto?
+      </label>
+
+      <input type="text" formControlName="neighborhood" placeholder="Ej. Americana, Providencia, Santa Tere..."
+        class="w-full rounded-lg border border-gray-500 bg-[#11181d] px-4 py-3 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-orange-400 focus:ring-2 focus:ring-orange-400/30" />
+
+      @if (neighborhood.invalid && neighborhood.touched) {
+      <p class="mt-1 text-xs text-red-400">
+        Ingresa la colonia donde estacionas más tu auto.
+      </p>
+      }
+    </div>
+
+    <button type="submit" [disabled]="isLoading()"
+      class="cursor-pointer w-full rounded-lg bg-orange-500 px-5 py-3 text-sm font-black uppercase tracking-wide text-white shadow-lg shadow-orange-500/30 transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60">
+      @if (isLoading()) {
+      Registrando...
+      } @else {
+      Quiero ser usuario fundador
+      }
+    </button>
+
+    <p class="text-center text-xs text-gray-300">
+      *Al registrarte, aceptas ser parte de la fase beta privada.
+    </p>
+
+    @if (successMessage()) {
+    <div class="rounded-lg border border-green-500/50 bg-green-500/10 px-4 py-3 text-sm text-green-300">
+      {{ successMessage() }}
+    </div>
+    }
+
+    @if (errorMessage()) {
+    <div class="rounded-lg border border-red-500/50 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+      {{ errorMessage() }}
+    </div>
+    }
+  </form>
+</div>
