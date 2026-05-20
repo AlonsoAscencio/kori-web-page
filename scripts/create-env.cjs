@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const targetDir = path.join(__dirname, '../src/environments');
-const targetPath = path.join(targetDir, 'environment.ts');
+const targetPath = path.join(targetDir, 'env.ts');
 
 if (!fs.existsSync(targetDir)) {
   fs.mkdirSync(targetDir, { recursive: true });
