@@ -39,4 +39,4 @@ export const environment = {
 `;
 
 fs.writeFileSync(targetPath, envFileContent);
-console.log('env.ts created');
+console.log('env.ts created 2.0');
